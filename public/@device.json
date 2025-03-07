@@ -1,0 +1,74 @@
+{
+	"aiseg2": [
+		{
+			"key":	"aiseg",
+			"name":	"-",
+			"addr":	"192.168.0.216",
+			"sec":	["aiseg","***YourPassword***"],
+			"difcalc": false,
+			"difname": "計測外"
+		}
+	],
+	"switchbot": [
+		{
+			"key":	"plug1",
+			"name":	"書斎PC",
+			"addr":	"34:85:**:**:**:**",
+			"type":	106
+		},
+		{
+			"key":	"plug2",
+			"name":	"Jackery",
+			"addr":	"34:b7:**:**:**:**",
+			"type":	106
+		},
+		{
+			"key":	"light",
+			"name":	"暖炉LED",
+			"addr":	"c0:4e:**:**:**:**",
+			"type":	117
+		},
+		{
+			"key":	"contact",
+			"name":	"シャッター",
+			"addr":	"d7:bd:**:**:**:**",
+			"type":	100
+		},
+		{
+			"key":	"temp1",
+			"name":	"外気",
+			"addr":	"dd:f6:**:**:**:**",
+			"type":	119
+		},
+		{
+			"key":	"temp2+CO2",
+			"name":	"リビング",
+			"addr":	"b0:e9:**:**:**:**",
+			"type":	53
+		},
+		{
+			"key":	"temp3",
+			"name":	"洗面",
+			"addr":	"e2:87:**:**:**:**",
+			"type":	84
+		},
+		{
+			"key":	"temp4",
+			"name":	"2Fトマト",
+			"addr":	"e4:17:**:**:**:**",
+			"type":	105
+		},
+		{
+			"key":	"temp6",
+			"name":	"2Fホール",
+			"addr":	"f6:8a:**:**:**:**",
+			"type":	119
+		},
+		{
+			"key":	"temp5",
+			"name":	"床下",
+			"addr":	"e4:74:**:**:**:**",
+			"type":	84
+		}
+	]
+}

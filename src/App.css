@@ -1,0 +1,50 @@
+.popup-menu {
+  position: absolute;
+  left:0;
+  top:0;
+  z-index: 4;
+  transform: scale(0);
+  
+  padding: 3px 3px 15px;
+  background: #fff8f0;
+  border-radius: 10px;
+  border: outset #bbb 2px;
+  
+  transition: transform 0.2s;
+  
+  &.shown {
+    transform: scale(1);
+  }
+}
+
+.tooltip {
+  position: absolute;
+  left:0;
+  top:0;
+  z-index: 4;
+  transform: scale(0);
+  
+  padding: 3px 3px 5px;
+  background: #fff8f0f0;
+  border-radius: 10px;
+  border: outset #bbbe 2px;
+
+  transition: transform 0.2s;
+  
+  &.shown {
+    transform: scale(1);
+  }
+}
+
+.toolline {
+  position: absolute;
+  left:0;
+  top:0;
+  z-index: 4;
+  transform: scale(0);
+  background: #00f7;
+  
+  &.shown {
+    transform: scale(1);
+  }
+}

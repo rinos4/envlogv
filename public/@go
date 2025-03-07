@@ -1,0 +1,2 @@
+nohup python webapp.py > webapp.log  &
+nohup ngrok http --url=***YourDomain***.ngrok-free.app 8080 &
