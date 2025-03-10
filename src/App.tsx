@@ -1970,6 +1970,7 @@ const App = () => {
           />
         </div>
         <hr/>
+        
         <div>温湿度のY軸範囲<br/>
           <label ><input type='radio' name='delOut' value={0} checked={option.delOut === 0} onChange={handleOptionChange} />全データ</label>
           <label ><input type='radio' name='delOut' value={1} checked={option.delOut === 1} onChange={handleOptionChange} />#1以降(外気除外)　</label>

@@ -12,7 +12,7 @@ Required modules: flask, Flask-HTTPAuth, requests, lxml, bluepy<br/>
 Required version: python 3.8 (Tested by Python 3.11.2)
 
 Screenshot (Landscape)
-![Screenshot (Landscape mode)](/Screenshot00.jpg)
+![Screenshot (Landscape mode)](docs/Screenshot00.jpg)
 
 # 個別設定について
 ## 対象ファイル
@@ -219,4 +219,4 @@ React アプリケーションのコンポーネント分割: App.tsx は全体�
 ```
 
 Screenshot (Portrait)
-![Screenshot (Portrait mode)](/Screenshot01.jpg)
+![Screenshot (Portrait mode)](docs/Screenshot01.jpg)
