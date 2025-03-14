@@ -1,3 +1,8 @@
+Latest version 0.9:
+<https://github.com/rinos4/envlogv/releases/download/v0.9.0/EnvLogV_v0.9.0.zip>
+
+Demo: <https://rinos4.github.io/envlogv/index.html>
+
 # Client web app
 React-SWC + TypeScript + Vite
 
