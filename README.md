@@ -1,7 +1,9 @@
 Latest version 0.9:
 <https://github.com/rinos4/envlogv/releases/download/v0.9.0/EnvLogV_v0.9.0.zip>
 
-Demo: <https://rinos4.github.io/envlogv/index.html>
+Demo: <https://rinos4.github.io/envlogv/>
+
+![Screenshot (Landscape mode)](docs/Screenshot00.jpg)
 
 # Client web app
 React-SWC + TypeScript + Vite
@@ -15,9 +17,6 @@ python + flask + bluepy (on Raspberry Pi Zero 2 W)
 
 Required modules: flask, Flask-HTTPAuth, requests, lxml, bluepy<br/>
 Required version: python 3.8 (Tested by Python 3.11.2)
-
-Screenshot (Landscape)
-![Screenshot (Landscape mode)](docs/Screenshot00.jpg)
 
 # 個別設定について
 ## 対象ファイル
