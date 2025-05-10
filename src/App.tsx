@@ -59,13 +59,13 @@ const LS_TVRSEL_VAL   = localStorage.getItem(LS_TVRSEL_KEY);
 // アニメーション速度。画面内のチャートが多くデフォルトだとモッサリするので短めにしておく。
 const ANIMATION_DURATION = 200;
 
-// 快適ゾーン定義 ⇒ 「室温:20℃～26℃　かつ 相対湿度:40%～60% かつ 絶対湿度:8g/m³～12g/m³」とした
+// 快適ゾーン定義 ⇒ 「室温:20℃～26℃　かつ 相対湿度:40%～60% かつ 絶対湿度:8g/m³～14g/m³」とした
 const PC_ZONE_TMIN = 20;
 const PC_ZONE_TMAX = 26;
 const PC_ZONE_RMIN = 40;
 const PC_ZONE_RMAX = 60;
 const PC_ZONE_VMIN = 8;
-const PC_ZONE_VMAX = 12;
+const PC_ZONE_VMAX = 14;
 
 // 湿り空気線図のグラフ範囲設定。縦軸が容積絶対湿度g/m³であることに注意。
 // ※一般的には縦軸に重量絶対湿度[g/kg]をとるが、気積が分かる住宅ではg/m³の方が水分量を把握しやすい
@@ -614,8 +614,9 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
                   }
                 </Scatter>
               }
-              {/* 代表PPMも付帯情報として表示しておく */}
-              <text x={scale.psy_out_x2} y={scale.psy_out_y2} style={{ fontSize: scale.psy_out_font, fill: graph.lastCO2col, textShadow: '1px 1px 3px white, 0 0 1em grey, 0 0 0.2em white' }} textAnchor='end' >CO2{graph.lastCO2? ': ' + graph.lastCO2 + 'ppm' : ''}</text>
+              {/* 代表絶対湿度とPPMも付帯情報として表示しておく */}
+              <text x={scale.psy_out_x2} y={scale.psy_out_y2                     } style={{ fontSize: scale.psy_out_font, fill: '#000',           textShadow: '1px 1px 3px white, 0 0 1em grey, 0 0 0.2em white' }} textAnchor='end' >{graph.psychart.length? graph.psylegend[0][4]+ ': ' + MyRound(graph.psylegend[0][3]) + 'g/㎥' : ''}</text>
+              <text x={scale.psy_out_x2} y={scale.psy_out_y2 + scale.psy_out_font} style={{ fontSize: scale.psy_out_font, fill: graph.lastCO2col, textShadow: '1px 1px 3px white, 0 0 1em grey, 0 0 0.2em white' }} textAnchor='end' >CO2{graph.lastCO2? ': ' + graph.lastCO2 + 'ppm' : ''}</text>
             </ComposedChart>
           </ResponsiveContainer>
 
@@ -625,7 +626,7 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
               return (
                 <React.Fragment key={'Leg1' + i}>
                   <div style={{...style, left:scale.psy_legend_x}}>{'✚' + v[4]}</div>
-                  <div style={{...style, left:scale.psy_legend_x + scale.psy_legend_font * 6.3}}>{MyFixStr(MyRound(v[1]), 4) + '℃' + MyFixStr(v[2] + '', 3) + '% ' + (i < 1? MyRound(v[3]) + 'g/㎥' : '')}</div>
+                  <div style={{...style, left:scale.psy_legend_x + scale.psy_legend_font * 6.3}}>{MyFixStr(MyRound(v[1]), 4) + '℃' + MyFixStr(v[2] + '', 3) + '%'}</div>
                 </React.Fragment>
               )
             })
@@ -1567,7 +1568,7 @@ const App = () => {
     let lastswitchbot_ut = 0;
 
     // まず空気線図の補助線の作成
-    for (let x = PC_X_BEGIN; x <= PC_X_END; x++) {
+    for (let x = PC_X_BEGIN; x <= PC_X_END; x += 0.5) {
       const pc: PsyChart = {
         dc: x,
         vh: NaN,        // 補助線では使用しない
@@ -1846,7 +1847,7 @@ const App = () => {
       psy_out_x1     : halfW * 0.21,
       psy_out_y1     : halfW * 0.50,
       psy_out_x2     : halfW * 1.13,
-      psy_out_y2     : halfW * 0.95,
+      psy_out_y2     : halfW * 0.885,
       
       x_axsis_font   : sc_x_axsis_font,
       y_axsis_font   : sc_y_axsis_font,
