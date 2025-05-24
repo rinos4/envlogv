@@ -579,12 +579,12 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
               <Area type='monotone' dataKey='zone' stroke='none' fill='#fca' dot={false} activeDot={false} isAnimationActive={false} />
               {/* 絶対湿度補助線 */
                 new Array(((PC_Y_END - PC_Y_BEGIN) / 2 | 0) + 1).fill(0).map((_zero, i) => (
-                  <ReferenceLine key={'PCVH' + i} stroke={(i % 2) ? '#bbb' : '#888'} strokeDasharray={(i % 2) ?'2 2' : '1 1'} segment={[{ x: CalcTFromVH(i * 2), y: i * 2}, { x: PC_X_END, y: i * 2}]} />
+                  <ReferenceLine key={'PCVH' + i} stroke={(i % 2) ? '#bbb' : '#888'} strokeDasharray={(i % 2) ?'2 3' : '2 1'} segment={[{ x: CalcTFromVH(i * 2), y: i * 2}, { x: PC_X_END, y: i * 2}]} />
                 ))
               }
               {/* 温度補助線 */
                 new Array((PC_X_END - PC_X_BEGIN) / 5 | 0).fill(0).map((_zero, i) => (
-                  <ReferenceLine key={'PCDC' + i} stroke={(i % 2) ? '#bbb' : '#888'} strokeDasharray={(i % 2) ?'2 2': '1 1'} segment={[{ x: PC_X_BEGIN + i * 5, y: 0 }, { x: PC_X_BEGIN + i * 5, y: Math.min(CalcVH(PC_X_BEGIN + i * 5, 100), PC_Y_END) }]} />                ))
+                  <ReferenceLine key={'PCDC' + i} stroke={(i % 2) ? '#bbb' : '#888'} strokeDasharray={(i % 2) ?'2 3': '2 1'} segment={[{ x: PC_X_BEGIN + i * 5, y: 0 }, { x: PC_X_BEGIN + i * 5, y: Math.min(CalcVH(PC_X_BEGIN + i * 5, 100), PC_Y_END) }]} />                ))
               }
               {/* 相対湿度補助線 */
                 new Array(10).fill(0).map((_zero, i) => (
@@ -615,7 +615,7 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
                 </Scatter>
               }
               {/* 代表絶対湿度とPPMも付帯情報として表示しておく */}
-              <text x={scale.psy_out_x2} y={scale.psy_out_y2                     } style={{ fontSize: scale.psy_out_font, fill: '#000',           textShadow: '1px 1px 3px white, 0 0 1em grey, 0 0 0.2em white' }} textAnchor='end' >{graph.psychart.length? graph.psylegend[0][4]+ ': ' + MyRound(graph.psylegend[0][3]) + 'g/㎥' : ''}</text>
+              <text x={scale.psy_out_x2} y={scale.psy_out_y2                     } style={{ fontSize: scale.psy_out_font, fill: '#000',           textShadow: '1px 1px 3px white, 0 0 1em grey, 0 0 0.2em white' }} textAnchor='end' >{graph.psylegend[0]? graph.psylegend[0][4]+ ': ' + MyRound(graph.psylegend[0][3]) + 'g/㎥' : ''}</text>
               <text x={scale.psy_out_x2} y={scale.psy_out_y2 + scale.psy_out_font} style={{ fontSize: scale.psy_out_font, fill: graph.lastCO2col, textShadow: '1px 1px 3px white, 0 0 1em grey, 0 0 0.2em white' }} textAnchor='end' >CO2{graph.lastCO2? ': ' + graph.lastCO2 + 'ppm' : ''}</text>
             </ComposedChart>
           </ResponsiveContainer>
@@ -638,7 +638,7 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
       <div style={{ width: '100%', height: scale.pwrdivH}}>
         <ResponsiveContainer>
           <ComposedChart data={graph.pwrchart} margin={{top:scale.y_axsis_font * 0.7, left: 0, right: scale.pwr_right + scale.legendW, bottom: scale.pwr_bottom}}>
-            <CartesianGrid strokeDasharray='3 3' />
+            <CartesianGrid strokeDasharray='2 3' />
             <XAxis tick={{ fontSize: scale.x_axsis_font, textAnchor: 'end'}} dataKey='ut' domain={['dataMin', 'dataMax']} type='number' ticks={scale.daytick} minTickGap={-50} interval='equidistantPreserveStart' angle={-60} dy={-2} tickSize={scale.psy_ticksize} tickFormatter={(ut) => DateFromUTX(ut)} />
             <YAxis tick={{ fontSize: scale.y_axsis_font }} orientation='right' unit='W' width={scale.y_axsisW} domain={([min, max]) => { return MyDomain(min, max, 100, 0, 100) }} ticks={MyTicks(graph.pwrminA, graph.pwrmaxA, 500, 0, 500, 6)}　interval='preserveStartEnd' minTickGap={-50} />
 
@@ -699,7 +699,7 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray='3 3' />
+            <CartesianGrid strokeDasharray='2 3' />
             <XAxis height={1} tickSize={scale.psy_ticksize} dataKey='ut' domain={['dataMin', 'dataMax']} type='number' ticks={scale.daytick} interval='equidistantPreserveStart' tickFormatter={() => ''}/>
             <YAxis tick={{ fontSize: scale.y_axsis_font }} domain={() => { return MyDomain(graph.rhminA, graph.rhmaxA, 5, PC_ZONE_RMIN, PC_ZONE_RMAX) }} ticks={MyTicks(graph.rhminA, graph.rhmaxA, 5, PC_ZONE_RMIN, PC_ZONE_RMAX)} minTickGap={-50} orientation='right' interval='preserveStartEnd' unit='%' width={scale.y_axsisW} />
             {
@@ -710,8 +710,8 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
               ))
             }
 
-            <ReferenceLine y={PC_ZONE_RMAX} label={'↓ 湿度上限' + PC_ZONE_RMAX + '%'} stroke='#f00' strokeDasharray='5 5' />
-            <ReferenceLine y={PC_ZONE_RMIN} label={'↑ 湿度下限' + PC_ZONE_RMIN + '%'} stroke='#f00' strokeDasharray='5 5' />
+            <ReferenceLine y={PC_ZONE_RMAX} label={'↓ 湿度上限' + PC_ZONE_RMAX + '%'} stroke='#f00' strokeDasharray='4 4' />
+            <ReferenceLine y={PC_ZONE_RMIN} label={'↑ 湿度下限' + PC_ZONE_RMIN + '%'} stroke='#f00' strokeDasharray='4 4' />
 
             <Legend layout='vertical' width={scale.legendW} align='right' iconSize={0} formatter={() => ''} />
 
@@ -748,7 +748,7 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray='3 3' />
+            <CartesianGrid strokeDasharray='2 3' />
             <XAxis height={1} tickSize={scale.psy_ticksize} dataKey='ut' domain={['dataMin', 'dataMax']} type='number' ticks={scale.daytick} interval='equidistantPreserveStart' tickFormatter={() => ''}/>
             <YAxis tick={{ fontSize: scale.y_axsis_font }} domain={() => { return MyDomain(graph.dcminA, graph.dcmaxA, 5, PC_ZONE_TMIN, PC_ZONE_TMAX) }} ticks={MyTicks(graph.dcminA, graph.dcmaxA, 5, PC_ZONE_TMIN, PC_ZONE_TMAX)} minTickGap={-50} orientation='right' interval='preserveStartEnd' unit='℃' width={scale.y_axsisW} />
             {
@@ -759,8 +759,8 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
               ))
             }
 
-            <ReferenceLine y={PC_ZONE_TMAX} label={'↓ 温度上限' + PC_ZONE_TMAX + '℃'} stroke='#f44' strokeDasharray='5 5' />
-            <ReferenceLine y={PC_ZONE_TMIN} label={'↑ 温度下限' + PC_ZONE_TMIN + '℃'} stroke='#f44' strokeDasharray='5 5' />
+            <ReferenceLine y={PC_ZONE_TMAX} label={'↓ 温度上限' + PC_ZONE_TMAX + '℃'} stroke='#f44' strokeDasharray='4 4' />
+            <ReferenceLine y={PC_ZONE_TMIN} label={'↑ 温度下限' + PC_ZONE_TMIN + '℃'} stroke='#f44' strokeDasharray='4 4' />
 
             <Legend layout='vertical' width={scale.legendW} align='right' iconSize={0} formatter={() => ''} />
 
@@ -779,7 +779,7 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray='3 3' />
+            <CartesianGrid strokeDasharray='2 3' />
             <XAxis tick={{fontSize: scale.x_axsis_font, textAnchor: 'end'}} dataKey='ut' domain={['dataMin', 'dataMax']} type='number' ticks={scale.daytick} minTickGap={-50} interval='equidistantPreserveStart' angle={-60} tickSize={scale.psy_ticksize} tickFormatter={(ut) => DateFromUTX(ut)} />
             <YAxis tick={{fontSize: scale.y_axsis_font}} domain={() => { return MyDomain(graph.vhminA, graph.vhmaxA, 2, PC_ZONE_VMIN, PC_ZONE_VMAX) }} ticks={MyTicks(graph.vhminA, graph.vhmaxA, 2, PC_ZONE_VMIN, PC_ZONE_VMAX)} minTickGap={-50} orientation='right' interval='preserveStartEnd' unit='g/m³' width={scale.y_axsisW} />
             {
@@ -789,8 +789,8 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
                    <Area key={'vh' + i} dataKey={'vh[' + i + ']'} name={v + '絶対湿度'} unit='g/m³' isAnimationActive={false} type='monotone' stroke='#000' fillOpacity={1} fill='url(#colorVH)' /> /*トップだけ塗りつぶし */
                 ))
             }
-            <ReferenceLine y={PC_ZONE_VMAX} label={'↓ 湿度上限' + PC_ZONE_VMAX + 'g'} stroke='#f44' strokeDasharray='5 5' />
-            <ReferenceLine y={PC_ZONE_VMIN} label={'↑ 湿度下限' + PC_ZONE_VMIN + 'g'} stroke='#f44' strokeDasharray='5 5' />
+            <ReferenceLine y={PC_ZONE_VMAX} label={'↓ 湿度上限' + PC_ZONE_VMAX + 'g'} stroke='#f44' strokeDasharray='4 4' />
+            <ReferenceLine y={PC_ZONE_VMIN} label={'↑ 湿度下限' + PC_ZONE_VMIN + 'g'} stroke='#f44' strokeDasharray='4 4' />
 
             <Legend layout='vertical' width={scale.legendW} align='right' iconSize={0} formatter={() => ''} />
 
@@ -809,7 +809,7 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray='3 3' />
+            <CartesianGrid strokeDasharray='2 3' />
             <XAxis tick={{ fontSize: scale.x_axsis_font, textAnchor: 'end'}} dataKey='ut' domain={['dataMin', 'dataMax']} type='number' ticks={scale.daytick} minTickGap={-50} interval='equidistantPreserveStart' angle={-60} tickSize={scale.psy_ticksize} tickFormatter={(ut) => DateFromUTX(ut)} />
             <YAxis tick={{ fontSize: scale.y_axsis_font }} domain={([min, max]) => { return MyDomain(min, max, 100, 400, 1000) }} ticks={MyTicks(graph.co2minA, graph.co2maxA, 100, 400, 1000, 4)} minTickGap={-50} orientation='right' interval='preserveStartEnd' unit='ppm' width={scale.y_axsisW} />
 
@@ -820,8 +820,8 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
               ))
             }
 
-            <ReferenceLine y={CO2_WARNING} label={'↑ CO2警告' + CO2_WARNING + 'ppm'} stroke='#f44' strokeDasharray='5 5' />
-            <ReferenceLine y={CO2_CAUTION} label={'↑ CO2注意' + CO2_CAUTION + 'ppm'} stroke='#fa2' strokeDasharray='5 5' />
+            <ReferenceLine y={CO2_WARNING} label={'↑ CO2警告' + CO2_WARNING + 'ppm'} stroke='#f44' strokeDasharray='4 4' />
+            <ReferenceLine y={CO2_CAUTION} label={'↑ CO2注意' + CO2_CAUTION + 'ppm'} stroke='#fa2' strokeDasharray='4 4' />
 
             <Legend layout='vertical' width={scale.legendW} align='right' iconSize={0} formatter={() => ''} />
 
