@@ -18,6 +18,9 @@ python + flask + bluepy (on Raspberry Pi Zero 2 W)
 Required modules: flask, Flask-HTTPAuth, requests, lxml, bluepy<br/>
 Required version: python 3.8 (Tested by Python 3.11.2)
 
+# システム構成
+![system](docs/system.jpg)
+
 # 個別設定について
 ## 対象ファイル
 public(dist)フォルダのファイルの内、名前の先頭が「@」の以下ファイルが個別設定対象です。

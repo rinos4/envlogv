@@ -622,7 +622,7 @@ const GraphMemo = React.memo((props: {graph:GraphProp, scale:ScaleProp}) => {
 
           {/* 独自Legend書式 */
             graph.psylegend.map((v, i) => {
-              const style: React.CSSProperties = {position: 'absolute', fontSize: scale.psy_legend_font, color: LineColor(i), top: i * scale.psy_legend_font};
+              const style: React.CSSProperties = {position: 'absolute', fontSize: scale.psy_legend_font, color: LineColor(i), top: i * scale.psy_legend_font, verticalAlign:'text-bottom', lineHeight:1.5};
               return (
                 <React.Fragment key={'Leg1' + i}>
                   <div style={{...style, left:scale.psy_legend_x}}>{'✚' + v[4]}</div>
